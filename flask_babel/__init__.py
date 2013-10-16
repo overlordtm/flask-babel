@@ -194,8 +194,9 @@ def get_translations():
         return None
     translations = getattr(ctx, 'babel_translations', None)
     if translations is None:
+        babel = ctx.app.extensions['babel']
         # dirname = os.path.join(ctx.app.root_path, 'translations')
-        translations = support.Translations.load(self.translations_dir, [get_locale()])
+        translations = support.Translations.load(babel.translations_dir, [get_locale()])
         ctx.babel_translations = translations
     return translations
 
