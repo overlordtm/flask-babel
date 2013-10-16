@@ -63,7 +63,7 @@ class Babel(object):
         self._date_formats = date_formats
         self._configure_jinja = configure_jinja
         self.app = app
-        self.translations_dir = translations_root or app.root_path
+        self.translations_dir = translations_root or os.path.join(app.root_path, 'translations')
 
         if app is not None:
             self.init_app(app)
@@ -194,8 +194,8 @@ def get_translations():
         return None
     translations = getattr(ctx, 'babel_translations', None)
     if translations is None:
-        dirname = os.path.join(ctx.app.root_path, 'translations')
-        translations = support.Translations.load(dirname, [get_locale()])
+        # dirname = os.path.join(ctx.app.root_path, 'translations')
+        translations = support.Translations.load(self.translations_dir, [get_locale()])
         ctx.babel_translations = translations
     return translations
 
