@@ -57,12 +57,13 @@ class Babel(object):
     })
 
     def __init__(self, app=None, default_locale='en', default_timezone='UTC',
-                 date_formats=None, configure_jinja=True):
+                 date_formats=None, configure_jinja=True, translations_root=None):
         self._default_locale = default_locale
         self._default_timezone = default_timezone
         self._date_formats = date_formats
         self._configure_jinja = configure_jinja
         self.app = app
+        self.translations_dir = translations_root or app.root_path
 
         if app is not None:
             self.init_app(app)
@@ -152,7 +153,8 @@ class Babel(object):
 
         .. versionadded:: 0.6
         """
-        dirname = os.path.join(self.app.root_path, 'translations')
+        # dirname = os.path.join(self.app.root_path, 'translations')
+        dirname = self.translations_dir
         if not os.path.isdir(dirname):
             return []
         result = []
